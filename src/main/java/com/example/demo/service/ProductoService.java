@@ -40,4 +40,26 @@ public class ProductoService {
 
         return "P" + String.format("%04d", nuevoNumero);  // Formato P00001
     }
+
+    // Obtener producto por ID
+public Producto obtenerPorId(String id) {
+    return productoRepository.findById(id).orElse(null);
+}
+
+// Actualizar producto
+public Producto actualizar(String id, Producto productoActualizado) {
+    return productoRepository.findById(id).map(productoExistente -> {
+        productoExistente.setDescripcion(productoActualizado.getDescripcion());
+        productoExistente.setCosto(productoActualizado.getCosto());
+        productoExistente.setPrecio(productoActualizado.getPrecio());
+        productoExistente.setCantidad(productoActualizado.getCantidad());
+        return productoRepository.save(productoExistente);
+    }).orElse(null);
+}
+
+// Eliminar producto
+public void eliminar(String id) {
+    productoRepository.deleteById(id);
+}
+
 }

@@ -27,4 +27,14 @@ public class DetallePedidoService {
     public List<DetallePedido> obtenerPorIdPedido(String idPedido) {
         return repository.findDetallesPorIdPedido(idPedido);
     }
+
+    public DetallePedido guardar(DetallePedido detalle) {
+    return repository.save(detalle);
+}
+
+public void eliminarPorIdPedido(String idPedido) {
+    List<DetallePedido> detalles = repository.findDetallesPorIdPedido(idPedido);
+    repository.deleteAll(detalles);
+}
+
 }

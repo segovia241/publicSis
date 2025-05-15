@@ -46,4 +46,28 @@ public class ClienteService {
     public List<Cliente> listar() {
         return clienteRepository.findAll();  // Obtiene todos los clientes desde la base de datos
     }
+
+    // Obtener un cliente por ID
+public Cliente obtenerPorId(String id) {
+    return clienteRepository.findById(id).orElse(null);
+}
+
+// Actualizar un cliente existente
+public Cliente actualizar(String id, Cliente clienteActualizado) {
+    return clienteRepository.findById(id).map(clienteExistente -> {
+        clienteExistente.setNombres(clienteActualizado.getNombres());
+        clienteExistente.setApellidos(clienteActualizado.getApellidos());
+        clienteExistente.setDireccion(clienteActualizado.getDireccion());
+        clienteExistente.setDni(clienteActualizado.getDni());
+        clienteExistente.setTelefono(clienteActualizado.getTelefono());
+        clienteExistente.setMovil(clienteActualizado.getMovil());
+        return clienteRepository.save(clienteExistente);
+    }).orElse(null);
+}
+
+// Eliminar cliente por ID
+public void eliminar(String id) {
+    clienteRepository.deleteById(id);
+}
+
 }
